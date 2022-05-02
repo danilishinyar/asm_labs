@@ -19,5 +19,5 @@ clean:
 $(EXE): $(OBJS)
 	$(LD) $(LDFLAGS) $(OBJS) ../lib/lib.o -o $@
 
-.s.0:
+.s.o:
 	$(AS) $(ASFLAGS) $< -o $@

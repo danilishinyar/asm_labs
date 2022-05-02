@@ -1,28 +1,29 @@
-.set    O_RDONLY,   0
-.set    O_WRONLY,   1
-.set    O_RDWR,     2
+.equ    O_RDONLY,       0
+.equ    O_WRONLY,       1
+.equ    O_RDWR,         2
 // RWX for user
-.set    S_IRUSR,    0400
-.set    S_IWUSR,    0200
-.set    S_IXUSR,    0100
-.set    S_IRWXU,    0700
+.equ    S_IRUSR,        0400
+.equ    S_IWUSR,        0200
+.equ    S_IXUSR,        0100
+.equ    S_IRWXU,        0700
 // RWX for group
-.set    S_IRGRP,    0040
-.set    S_IWGRP,    0020
-.set    S_IXGRP,    0010
-.set    S_IRWXG,    0070
+.equ    S_IRGRP,        0040
+.equ    S_IWGRP,        0020
+.equ    S_IXGRP,        0010
+.equ    S_IRWXG,        0070
 // RWX for other
-.set    S_IROTH,    0004
-.set    S_IWOTH,    0002
-.set    S_IXOTH,    0001
-.set    S_IRWXO,    0007
+.equ    S_IROTH,        0004
+.equ    S_IWOTH,        0002
+.equ    S_IXOTH,        0001
+.equ    S_IRWXO,        0007
 //FILE FLAGS
-.set    O_CREAT,    0x40
-.set    O_TRUNC,    0x200
+.equ    O_CREAT,        0x40
+.equ    O_TRUNC,        0x200
 //mmap flags
-.set    MAP_PRIVATE,    0x02
-.set    MAP_ANONYMOUS,  0x20
-.set    PROT_READ,  0x1
+.equ    MAP_PRIVATE,    0x02
+.equ    MAP_ANONYMOUS,  0x20
+.equ    PROT_READ,      0x1
+.equ    PROT_WRITE,     0x2
 //mremap flags
 .set    MREMAP_MAYMOVE, 1
 

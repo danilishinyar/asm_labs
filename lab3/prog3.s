@@ -69,17 +69,17 @@ _start:
     inc x0
     bl  main
     b   3b
-
-
     .size   _start, .-_start
     .type   main, %function
     .text
     .align  2
     .equ    filename, 16
     .equ    fd, 24
-    .equ    buf, 48
+    .equ    adrs, 48
     .equ    wc, 32
     .equ    tmp, 40
+    .equ    len, 56
+    .equ    buf, 64
 main:                       //open file x0-adress of filename
     stp x29, x30, [sp]
     mov x29, sp
@@ -87,7 +87,7 @@ main:                       //open file x0-adress of filename
     mov x1, x0
     mov x0, #-100
     mov x2, O_WRONLY | O_CREAT | O_TRUNC
-    mov x3, S_IRUSR | S_IWUSR
+    mov x3, S_IRUSR
     mov x8, #56
     svc #0
     cmp x0, #0
@@ -100,18 +100,12 @@ main:                       //open file x0-adress of filename
     str x0, [x29, wc]
 1:
     mov x0, #0
-    bl  dynamic_read //now x0-pointer to string we just have read
+    bl  dynamic_read //now x0-pointer to string we just have read x1-len
+    str x0, [x29, len]
+    str x1, [x29, adrs]
     cmp x0, #0
     beq 3f
     bgt 5f
-    //str x0, [sp, #-16]!     //store x0 value (error code)
-    //ldr x0, [x29, fd]       //load fd
-    //mov x8, #57             //close file
-    //svc #0
-    //ldr x0, [sp], #16       //load error code to x0 again :-)
-    //bl  writeerr
-    //mov x0, #1
-    //b   4f
 5:
     ldrb    w0, [x1], #1
     cbz w0, 12f             //end of string (\0)
@@ -194,7 +188,13 @@ main:                       //open file x0-adress of filename
     add x1, x1, tmp
     mov x8, #64
     svc #0
-    b   1b
+    b   15f
+15:
+    ldr x0, [x29, adrs]
+    ldr x1, [x29, len]
+    mov x8, #215
+    svc #0
+    b 1b
 3:
     ldr x0, [x29, fd]
     mov x8, #57

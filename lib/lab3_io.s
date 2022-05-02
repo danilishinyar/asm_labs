@@ -11,13 +11,13 @@ read_str:
 
 
 func_define dynamic_read
-    .equ    str_size, #1024
+.equ    str_size, 10
 dynamic_read:
     push_registers
     mov x19, x0
     mov x0, #0      //addr=NULL (it decides itself where to put our string)
     mov x1, str_size//size
-    mov x2, PROT_READ
+    mov x2, PROT_READ | PROT_WRITE
     mov x3, MAP_PRIVATE | MAP_ANONYMOUS //to map some memory filled with zeroes (we are not reading from any file)
     mov x4, #-1     //as man says it should be -1 (fd)
     mov x5, #0      //offset
@@ -31,11 +31,12 @@ dynamic_read:
     mov x0, x19
     mov x1, x21
     mov x2, #1
-    bl  read_str
+    mov x8, #63
+    svc #0
     cbz x0, 2f
     ldrb    w24, [x21]//check if symbol is \n
     cmp w24, '\n'
-    beq 3f
+    beq 4f
     inc x21
     inc x22
     cmp x22, x23
@@ -47,7 +48,7 @@ dynamic_read:
     mov x2, x23     //new size
     mov x3, MREMAP_MAYMOVE
     mov x4, #0
-    mov x8, #218    //mremap
+    mov x8, #216    //mremap
     svc #0
     mov x20, x0     //new adress
     mov x21, x0     //new pointer
@@ -60,4 +61,7 @@ dynamic_read:
     mov x0, x22
     pop_registers
     ret
+4:
+    inc x22
+    b 2b
     .size dynamic_read, .-dynamic_read

@@ -80,7 +80,9 @@ _start:
     .equ    tmp, 40
     .equ    len, 56
     .equ    buf, 64
-main:                       //open file x0-adress of filename
+main:
+    mov x16, buf
+    sub sp, sp, x16                   //open file x0-adress of filename
     stp x29, x30, [sp]
     mov x29, sp
     str x0, [x29, filename]

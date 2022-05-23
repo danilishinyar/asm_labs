@@ -63,20 +63,20 @@ main:                       //check usage
     adr x1, mode
     bl  fopen
     cbnz    x0, 1f
-    ldr x0, [x1, #8]
+    //ldr x0, [x1, #8]
     bl  perror
     mov w0, #1
     b   ext
 1:                          //read n
     push    x0
     push    x0
-    mov x16,x0
     mov x2, sp
     adr x1, formint
     bl  fscanf
     cmp w0, #1
     beq 2f
-    mov x0, x16
+    pop x0
+    pop x0
     bl fclose
     adr x0, stderr
     ldr x0, [x0]
@@ -186,6 +186,7 @@ main:                       //check usage
     ldr x1, [x29, G]
     ldr x3, [x29, tmp]
     bl mul_matr
+    ldr x0, [x29, tmp]
     ldr x3, [x29, res]
     ldr x1, [x29, res]
     bl add_matr
@@ -200,6 +201,7 @@ main:                       //check usage
     bl mul_matr
     ldr x3, [x29, res]
     ldr x1, [x29, res]
+    bl add_matr
     /* a * (b - c) */
     ldr x0, [x29, B]
     ldr x1, [x29, C]
@@ -211,6 +213,7 @@ main:                       //check usage
     bl mul_matr
     ldr x3, [x29, res]
     ldr x1, [x29, res]
+    bl add_matr
     b 9f
 9:                              //ptint res matr
     ldr x27, [x29, res]

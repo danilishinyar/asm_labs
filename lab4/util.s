@@ -65,7 +65,7 @@ sub_matr:
     lsl x21, x21, #2
     ldr s22, [x0, x21]
     ldr s23, [x1, x21]
-    fsub s22, s23, s22
+    fsub s22, s22, s23
     str s22, [x3, x21]
 2:
     inc x20

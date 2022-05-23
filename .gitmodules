@@ -1,0 +1,3 @@
+[submodule "lab5/lab5/imcat"]
+	path = lab5/lab5/imcat
+	url = https://github.com/stolk/imcat

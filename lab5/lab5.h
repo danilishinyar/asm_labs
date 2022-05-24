@@ -14,8 +14,6 @@
 #define GaussianBlur
 
 void blurImage(unsigned char* inputData, unsigned char* outputData, unsigned char* matrix, int width, int height, int channels, int matr_offset);
-void calcNewPixel(unsigned char* inputData, unsigned char* outputData, unsigned char* matrix, int x, int y, int k, int width, int height, int channels, int matr_offset);
 void Asm_blurImage(unsigned char* inputData, unsigned char* outputData, unsigned char* matrix, int width, int height, int channels, int matr_offset);
-void Asm_calcNewPixel(unsigned char* inputData, unsigned char* outputData, unsigned char* matrix, int x, int y, int k, int width, int height, int channels, int matr_offset);
 void timing();
 #endif
